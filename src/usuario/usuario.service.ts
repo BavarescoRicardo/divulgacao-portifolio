@@ -1,15 +1,30 @@
 import { Injectable } from '@nestjs/common';
 import { CreateUsuarioDto } from './dto/create-usuario.dto';
 import { UpdateUsuarioDto } from './dto/update-usuario.dto';
+import { Usuario } from './entities/usuario.entity';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 
 @Injectable()
 export class UsuarioService {
+  constructor(
+    @InjectModel(Usuario.name) private usuarioModel: Model<Usuario>,
+  ) {}
   create(createUsuarioDto: CreateUsuarioDto) {
-    return 'This action adds a new usuario';
+    try {
+      const createdUsuario = new this.usuarioModel(createUsuarioDto);
+      return createdUsuario.save();
+    } catch (e) {
+      throw e;
+    }
   }
 
   findAll() {
-    return `This action returns all usuario`;
+    try {
+      return this.usuarioModel.find();
+    } catch (error) {
+      throw error;
+    }
   }
 
   findOne(id: number) {
@@ -17,6 +32,7 @@ export class UsuarioService {
   }
 
   update(id: number, updateUsuarioDto: UpdateUsuarioDto) {
+    console.log(updateUsuarioDto);
     return `This action updates a #${id} usuario`;
   }
 
