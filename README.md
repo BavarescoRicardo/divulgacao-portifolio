@@ -9,6 +9,9 @@
     <p align="center">
 
 # Description
+Documentação disponivel no repositório: https://github.com/BavarescoRicardo/spring-boot
+  Referente ao Trabalho de Conclusão de Curso de Engenharia de Computação:
+    https://drive.google.com/file/d/1-UaIKh1SUZatuA9na9Tx2H8JV_wTwek-/view?usp=sharing
 
 ### Aplicação para divulgação do seu portifólio - Código aberto e cooperativo
 API para disponibilizar os recursos salvos referentes ao seu portifólio, ou seja publique aqui seus desenvolvimentos para se promover.
