@@ -6,4 +6,8 @@ export class CreateUsuarioDto {
   idade: number;
   @IsEmail()
   email: string;
+  @MinLength(5, {
+    message: 'A senha do usuário deve conter no minimo 5 caracteres',
+  })
+  senha: string;
 }
