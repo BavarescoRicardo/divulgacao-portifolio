@@ -4,6 +4,7 @@ import { UpdateUsuarioDto } from './dto/update-usuario.dto';
 import { Usuario } from './entities/usuario.entity';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { hashSync } from 'bcrypt';
 
 @Injectable()
 export class UsuarioService {
@@ -12,7 +13,14 @@ export class UsuarioService {
   ) {}
   create(createUsuarioDto: CreateUsuarioDto) {
     try {
-      const createdUsuario = new this.usuarioModel(createUsuarioDto);
+      const usuario = {
+        ...createUsuarioDto,
+        id: Date.now(),
+        senha: this.criptografia(createUsuarioDto.senha),
+        createDate: new Date(),
+        updateDate: new Date(),
+      };
+      const createdUsuario = new this.usuarioModel(usuario);
       return createdUsuario.save();
     } catch (e) {
       throw e;
@@ -27,8 +35,12 @@ export class UsuarioService {
     }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} usuario`;
+  async findOne(email: string) {
+    try {
+      return await this.usuarioModel.findOne({ email: email });
+    } catch (error) {
+      throw error;
+    }
   }
 
   update(id: number, updateUsuarioDto: UpdateUsuarioDto) {
@@ -38,5 +50,9 @@ export class UsuarioService {
 
   remove(id: number) {
     return `This action removes a #${id} usuario`;
+  }
+
+  criptografia(senha: string) {
+    return hashSync(senha, 10);
   }
 }
