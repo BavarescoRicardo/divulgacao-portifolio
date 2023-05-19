@@ -15,7 +15,7 @@ import { JwtStrategy } from './estrategias/jwt.strategy';
     UsuarioModule,
     JwtModule.register({
       privateKey: process.env.JWT_SEGREDO,
-      signOptions: { expiresIn: '60s' },
+      signOptions: { expiresIn: '30m' },
     }),
   ],
   providers: [AuthService, LocalStrategy, JwtStrategy],
